@@ -75,7 +75,7 @@
         var monthlyInterestRate = interestRate / 100 / 12;
         var emi = (principalAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, durationMonths)) / (Math.pow(1 + monthlyInterestRate, durationMonths) - 1);
 
-        $('#emiResult').html("Monthly EMI: $" + emi.toFixed(2));
+        $('#emiResult').html("Monthly EMI: " + emi.toFixed(2));
     }
 </script>
 </body>
