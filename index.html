@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMI Calculator</title>
+<style>
+    /* Add some basic styling */
+    body {
+        font-family: Arial, sans-serif;
+    }
+    form {
+        margin: 20px auto;
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+<form id="emiForm">
+    <label for="totalPrice">Total Price:</label>
+    <input type="number" id="totalPrice" name="totalPrice" required><br>
+    <label for="downPayment">Down Payment:</label>
+    <input type="number" id="downPayment" name="downPayment" required><br>
+    <label for="interestRate">Interest Rate (%):</label>
+    <input type="number" id="interestRate" name="interestRate" required><br>
+    <label for="durationMonths">Duration (in months):</label>
+    <input type="number" id="durationMonths" name="durationMonths" required><br>
+    <input type="submit" value="Calculate EMI">
+</form>
+
+<div id="emiResult"></div>
+
+<script>
+    document.getElementById('emiForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        calculateEMI(); // Call the function to calculate EMI
+    });
+
+    function calculateEMI() {
+        var totalPrice = parseFloat(document.getElementById('totalPrice').value);
+        var downPayment = parseFloat(document.getElementById('downPayment').value);
+        var interestRate = parseFloat(document.getElementById('interestRate').value);
+        var durationMonths = parseFloat(document.getElementById('durationMonths').value);
+
+        var principalAmount = totalPrice - downPayment;
+        var monthlyInterestRate = interestRate / 100 / 12;
+        var emi = (principalAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, durationMonths)) / (Math.pow(1 + monthlyInterestRate, durationMonths) - 1);
+
+        document.getElementById('emiResult').innerHTML = "Monthly EMI: " + emi.toFixed(2);
+    }
+</script>
+</body>
+</html>
